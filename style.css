@@ -1,16 +1,17 @@
 body {
     box-sizing: border-box;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 .calculator {
     background-color: lightslategray;
     width: 400px;
-    height: 450px;
     padding: 20px;
     border-radius: 15px;
-
+    margin: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,22 +19,26 @@ body {
 
 .display {
     background-color: white;
-    display: flex;
-    justify-content: end;
-    align-items: center;
     font-size: 3em;
+    text-align: right;
     width: 360px;
-    height: 50px;
     padding: 10px;
     margin: 15px;
     border: 5px solid black;
     border-radius: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .buttons {
     width: 400px;
     height: 300px;
-    margin-top: 20px;
+}
+
+.buttons button:hover {
+  background-image: linear-gradient(rgb(0 0 0/50%) 0 0);
+  border: 3px solid white;
+  color: white;
 }
 
 .buttons button {
