@@ -31,8 +31,7 @@ body {
 }
 
 .buttons {
-    width: 400px;
-    height: 300px;
+    max-width: 400px;
 }
 
 .buttons button:hover {
@@ -50,13 +49,18 @@ body {
     border-radius: 5px;
 }
 
-.buttons .numbers {
+.buttons .numbers, .decimal {
     background-color: white;
 }
 .buttons .operators, .equal {
     background-color: lightskyblue;
 }
 
-.clear {
+.buttons .clear, .delete {
     background-color: lightpink;
+    width: 180px;
+}
+
+.buttons .equal, .clear {
+    width: 180px;
 }

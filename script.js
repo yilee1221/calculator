@@ -47,14 +47,13 @@ function clear() {
 }
 
 const numButtons = document.querySelectorAll('.numbers');
-numButtons.forEach((number) => number.addEventListener('click', () => {
-    
+numButtons.forEach(number => number.addEventListener('click', () => {
     if (!choseOperator) {
         if (display.textContent == '0') {
             display.textContent = '';
         }
         display.textContent += number.textContent;
-        numA = parseInt(display.textContent);
+        numA = parseFloat(display.textContent);
         console.log('numA: ' + numA);
     }
     else {
@@ -62,13 +61,13 @@ numButtons.forEach((number) => number.addEventListener('click', () => {
             display.textContent = '';
         }
         display.textContent += number.textContent;
-        numB = parseInt(display.textContent);
+        numB = parseFloat(display.textContent);
         console.log('numB: ' + numB)
     }
 }));
 
 const operators = document.querySelectorAll('.operators');
-operators.forEach((operation) => operation.addEventListener('click', () => {
+operators.forEach(operation => operation.addEventListener('click', () => {
     if (numB != '') {
         let tempAnswer = roundAnswer(operate(operator,numA,numB));
         display.textContent = tempAnswer;
@@ -82,12 +81,49 @@ operators.forEach((operation) => operation.addEventListener('click', () => {
 
 const equals = document.querySelector(".equal");
 equals.addEventListener('click', () => {
-    answer = roundAnswer(operate(operator,numA,numB));
-    display.textContent = answer;
-    console.log('answer: ' + answer)
-    numA = answer;
-    numB = '';
+    if (numA == '' || numB == '' || operator == '') {
+        alert("Not a valid calculation. Try again.");
+        answer = 0;
+        clear();
+    }
+    else if (operator == '÷' && numB == 0) {
+        alert("You can't divide by 0!");
+        answer = 0;
+        clear();
+    }
+    else {
+        answer = roundAnswer(operate(operator,numA,numB));
+        display.textContent = answer;
+        console.log('answer: ' + answer)
+        numA = answer;
+        numB = '';
+    }
 });
 
 const clearButton = document.querySelector('.clear');
 clearButton.addEventListener('click', clear);
+
+const deleteButton = document.querySelector('.delete');
+deleteButton.addEventListener('click', () => {
+    if (display.textContent == numA) {
+        numA = display.textContent.toString().slice(0, -1);
+        display.textContent = numA;
+    }
+    if (display.textContent == numB) {
+        numB = display.textContent.toString().slice(0, -1);
+        display.textContent = numB;
+    }
+});
+
+const decimalButton = document.querySelector('.decimal');
+decimalButton.addEventListener('click', () => {
+    if (display.textContent.includes('.')) return
+    if (display.textContent == numA) {
+        numA = display.textContent += '.';
+        display.textContent = numA;
+    }
+    if (display.textContent == numB) {
+        numB = display.textContent += '.';
+        display.textContent = numB;
+    }
+});
