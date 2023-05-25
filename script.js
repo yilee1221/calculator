@@ -27,26 +27,35 @@ function operate(operator,a,b) {
     }
 }
 
-let display = document.querySelector('.display');
+const display = document.querySelector('.display');
 let numA = '';
 let numB = '';
 let choseOperator = false;
 let operator = '';
-let answer = 0;
+let answer = '';
 
 function roundAnswer(number) {
     return Math.round(number*1000) / 1000;
 }
 
+function clear() {
+    numA = 0;
+    numB = 0;
+    display.textContent = 0;
+    operator = ''
+    choseOperator = false;
+}
+
 const numButtons = document.querySelectorAll('.numbers');
 numButtons.forEach((number) => number.addEventListener('click', () => {
+    
     if (!choseOperator) {
         if (display.textContent == '0') {
             display.textContent = '';
         }
         display.textContent += number.textContent;
         numA = parseInt(display.textContent);
-        console.log('numA' + numA);
+        console.log('numA: ' + numA);
     }
     else {
         if (numB == '') {
@@ -54,29 +63,31 @@ numButtons.forEach((number) => number.addEventListener('click', () => {
         }
         display.textContent += number.textContent;
         numB = parseInt(display.textContent);
-        console.log('numB' + numB)
+        console.log('numB: ' + numB)
     }
 }));
 
 const operators = document.querySelectorAll('.operators');
 operators.forEach((operation) => operation.addEventListener('click', () => {
-    operator = operation.textContent
+    if (numB != '') {
+        let tempAnswer = roundAnswer(operate(operator,numA,numB));
+        display.textContent = tempAnswer;
+        numA = tempAnswer;
+    }
+    operator = operation.textContent;
+    console.log(operator);
     choseOperator = true;
+    numB = '';
 }));
 
 const equals = document.querySelector(".equal");
 equals.addEventListener('click', () => {
     answer = roundAnswer(operate(operator,numA,numB));
     display.textContent = answer;
-    console.log('answer' + answer)
+    console.log('answer: ' + answer)
     numA = answer;
+    numB = '';
 });
 
 const clearButton = document.querySelector('.clear');
-clearButton.addEventListener('click', () => {
-    numA = 0;
-    numB = 0;
-    display.textContent = 0;
-    operator = ''
-    choseOperator = false;
-});
+clearButton.addEventListener('click', clear);
