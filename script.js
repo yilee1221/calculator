@@ -47,6 +47,9 @@ function clear() {
 }
 
 function updateNumber(num) {
+    if (display.textContent == "") {
+        clear();
+    }
     if (!choseOperator) {
         if (display.textContent == '0') {
             display.textContent = '';
@@ -119,7 +122,7 @@ function putDecimal() {
         display.textContent = numB;
     }
 }
-
+//const allButtons = document.querySelectorAll('button');
 const numButtons = document.querySelectorAll('.numbers');
 numButtons.forEach(number => number.addEventListener('click', () => updateNumber(number.textContent)));
 
@@ -146,6 +149,7 @@ function keyboardOperator(oper) {
 }
 const keys = window.addEventListener('keydown', keySupport);
 function keySupport(event) {
+    
     if (event.key >= 0 && event.key <= 9) {
         updateNumber(event.key);
     }
